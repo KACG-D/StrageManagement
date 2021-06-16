@@ -1,0 +1,2 @@
+# StrageManagement
+個人EC向け在庫管理Webアプリケーション
