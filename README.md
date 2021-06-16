@@ -9,4 +9,7 @@
 - 発注書PDFの生成
 - 外部ECサイトからCSV形式のインポート
 
-# 使用ライブラリ
+# 使用技術
+- Flask
+- MySQL
+- reportlab
