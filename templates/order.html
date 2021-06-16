@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block title %}
+発注
+{% endblock %}
+{% set active_page = "order" %}
+
+{% block content %}
+<h1>発注</h1>
+
+<table class="table table-bordered">
+<thead>
+  <tr>
+      <th>ID</th>
+      <th>仕入れ店</th>
+      <th>合計金額</th>
+      <th>作成日</th>
+  </tr>
+</thead>
+<tbody>
+    {% for order in orders %}
+    <tr>  
+        <td>{{ order[0].id }}</td>
+        <td>{{ order[1].name }}</td>
+        <td>{{ order[0].total_amount }}</td>
+        <td>{{ order[0].date }}</td>
+        <td><a href="/order/detail?id={{order[0].id}}">詳細</a></td>
+        <td><a href="/order/pdf?id={{order[0].id}}" target="_blank">PDF</a></td>
+        <td><a href="javascript:result = window.confirm('発注ID:{{order[0].id}}を削除します');if(result)location.href='/product/remove?id={{order[0].id}}';">削除</a></td>
+    </tr>
+    {% else %}
+        <tr><td></td><td>発注が登録されていません</td></tr>
+    {% endfor %}
+</tbody>
+</table>
+{% endblock %}

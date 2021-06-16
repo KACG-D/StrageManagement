@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% set active_page = "order" %}
+{% block title %}
+新規発注
+{% endblock %}
+
+{% block content %}
+<h1>新規発注</h1>
+<form action="/order/add" method = "POST">
+    <div>
+        <button>作成</button><br>
+        仕入れ店:
+        <select name="store_id">
+            {% for store in stores %}
+            <option value="{{store.id}}">{{store.name}}</option>
+            {% else %}
+            <option value=""></option>
+            {% endfor %}
+        </select>
+    </div>
+
+    <table class="table table-bordered">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>商品名</th>
+        <th>商品番号</th>
+        <th>仕入れ価格</th>
+        <th>数量</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for product in products %}
+    <tr>
+        <td>{{ product.id }}</td>
+        <td>{{ product.name }}</td>
+        <td>{{ product.identifer }}</td>
+        <td>{{ product.purchase_price }}</td>
+        <td><input type ="number" name = "num{{product.id}}" value=0 min=0></td>
+    </tr>
+    {% else %}
+        <tr><td></td><td>商品が登録されていません</td></tr>
+    {% endfor %}
+    </tbody>
+    </table>
+</form>
+{% endblock %}

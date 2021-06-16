@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% set active_page = "order" %}
+{% block title %}
+発注
+{% endblock %}
+
+{% block content %}
+<h1>{{order[0].date}}発注詳細</h1>
+仕入れ店:{{order[1].name}}<br>
+合計金額:{{order[0].total_amount}}<br>
+<table class="table table-bordered">
+<thead>
+  <tr>
+      <th>ID</th>
+      <th>商品名</th>
+      <th>単価</th>
+      <th>個数</th>
+      <th>金額</th>
+  </tr>
+</thead>
+<tbody>
+    {% for o in ordered %}
+    <tr>  
+        <td>{{ o[0].id }}</td>
+        <td>{{ o[1].name }}</td>
+        <td>{{ o[1].purchase_price }}</td>
+        <td>{{ o[0].num }}</td>
+        <td>{{ o[0].num*o[1].purchase_price }}</td>
+    </tr>
+    {% else %}
+        <tr><td></td><td>発注が登録されていません</td></tr>
+    {% endfor %}
+</tbody>
+</table>
+{% endblock %}

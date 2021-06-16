@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+
+{% set active_page = "setting" %}
+{% block title %}
+CSVインポート
+{% endblock %}
+
+{% block content %}
+<h1>CSVインポート</h1>
+以下の項目を追加します．(既存の項目は追加されません)<br>
+<form action = "/setting/csv/add" method="post">
+<button>作成</button><button type="button" onclick="location.href='/setting'">キャンセル</button>
+<h2>カテゴリ</h2>
+<table class="table table-bordered">
+<thead>
+    <tr>
+        <th>カテゴリ名</th>
+    </tr>
+</thead>
+<tbody>
+    {% for name in category %}
+    <tr>
+        <td>{{ name }}</td>
+    </tr>
+    <input type="hidden" name = "category[]" value="{{name}}">
+    {% else %}
+        <tr><td></td><td>新しいカテゴリはありません</td></tr>
+    {% endfor %}
+</tbody>
+</table>
+<h2>仕入れ店</h2>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>店名</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for name in store %}
+        <tr>
+            <td>{{ name }}</td>
+        </tr>
+        <input type="hidden" name = "store[]" value="{{name}}">
+        {% else %}
+            <tr><td></td><td>新しい仕入れ店はありません</td></tr>
+        {% endfor %}
+    </tbody>
+</table>
+<h2>商品</h2>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>商品名</th>
+            <th>カテゴリ名</th>
+            <th>在庫</th>
+            <th>商品番号</th>
+            <th>販売価格</th>
+            <th>仕入れ価格</th>
+            <th>仕入れ店</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for p in product %}
+        <tr>
+            <td>{{ p[0] }}</td>
+            <td>{{ p[1] }}</td>
+            <td>{{ p[2] }}</td>
+            <td>{{ p[3] }}</td>
+            <td>{{ p[4] }}</td>
+            <td>{{ p[5] }}</td>
+            <td>{{ p[6] }}</td>
+        </tr>
+        <input type="hidden" name = "pname[]" value="{{p[0]}}">
+        <input type="hidden" name = "pcategory[]" value="{{p[1]}}">
+        <input type="hidden" name = "num[]" value="{{p[2]}}">
+        <input type="hidden" name = "identifer[]" value="{{p[3]}}">
+        <input type="hidden" name = "selling_price[]" value="{{p[4]}}">
+        <input type="hidden" name = "purchase_price[]" value="{{p[5]}}">
+        <input type="hidden" name = "pstore[]" value="{{p[6]}}">
+        {% else %}
+            <tr><td></td><td>新しい商品はありません</td></tr>
+        {% endfor %}
+    </tbody>
+</table>
+</form>>
+{% endblock %}

@@ -1,0 +1,17 @@
+
+{% extends "pop_base.html" %}
+
+{% block title %}
+新規仕入れ店
+{% endblock %}
+
+{% block content %}
+<h1 align="center">新規仕入れ店</h1>
+<form name="myform" action="/store/add" method = "post" onsubmit="rank()">
+店名:<input type='text' name='name'><br>
+住所:<input type='text' name='address'><br>
+電話番号:<input type='text' name='phone'><br>
+メール:<input type='text' name='mail'><br>
+<input type="button" value="追加" onClick="rank()">
+</form>
+{% endblock %}

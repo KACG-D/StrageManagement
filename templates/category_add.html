@@ -1,0 +1,14 @@
+
+{% extends "pop_base.html" %}
+
+{% block title %}
+新規カテゴリ
+{% endblock %}
+
+{% block content %}
+<h1 align="center">新規カテゴリ</h1>
+<form name="myform" action="/category/add" method = "post" onsubmit="rank()">
+カテゴリ名:<input type='text' name='name'><br>
+<input type="button" value="追加" onClick="rank()">
+</form>
+{% endblock %}

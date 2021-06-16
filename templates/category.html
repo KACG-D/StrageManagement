@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% set active_page = "category" %}
+{% block title %}
+カテゴリ
+{% endblock %}
+
+{% block content %}
+<h1>カテゴリ</h1>
+<a href="javascript:window.open('/category/add', 'category_add', 'width=400,height=300');">新しいカテゴリの追加</a><br>
+
+<table class="table table-bordered">
+<thead>
+  <tr>
+      <th>ID</th>
+      <th>カテゴリ名</th>
+  </tr>
+</thead>
+<tbody>
+  {% for category in categories %}
+  <tr>
+      <td>{{ category.id }}</td>
+      <td>{{ category.name }}</td>
+      <td>
+        <a href="javascript:window.open('/category/edit?id={{category.id}}', 'edit', 'width=400,height=300');">編集</a>
+      </td>
+      <td><a href="javascript:result = window.confirm('カテゴリ:{{category.name}}を削除します');if(result)location.href='/category/remove?id={{category.id}}';">削除</a></td>
+  </tr>
+  {% else %}
+      <tr><td></td><td>カテゴリが登録されていません</td></tr>
+  {% endfor %}
+</tbody>
+</table>
+{% endblock %}

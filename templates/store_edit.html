@@ -1,0 +1,18 @@
+
+{% extends "pop_base.html" %}
+
+{% block title %}
+{{store.name}}の編集
+{% endblock %}
+
+{% block content %}
+<h1 align="center">{{store.name}}の編集</h1>
+<form name="myform" action="/store/edit" method = "post" onsubmit="rank()">
+    <input type="hidden" value="{{store.id}}" name="id">
+    店名:<input type='text' name='name' value="{{store.name}}"><br>
+    住所:<input type='text' name='identifer' value="{{store.address}}"><br>
+    電話番号:<input type='text' name='selling_price' value="{{store.phone}}"><br>
+    メール:<input type='text' name='purchase_price' value="{{store.mail}}"><br>
+    <input type="button" value="保存" onClick="rank()">
+</form>
+{% endblock %}

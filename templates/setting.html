@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% set active_page = "setting" %}
+{% block title %}
+設定
+{% endblock %}
+
+{% block content %}
+<h1>設定</h1>
+CSVインポート
+<form method="post" enctype=multipart/form-data action ="/setting/csv">
+    <input type="file" name="user_file">
+    <input type="submit">
+</form>
+{% endblock %}

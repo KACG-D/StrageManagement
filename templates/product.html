@@ -1,0 +1,117 @@
+{% extends "base.html" %}
+{% set active_page = "product" %}
+
+{% block title %}
+商品
+{% endblock %}
+
+{% block content %}
+<script type="text/javascript">
+    //選択された商品の発注登録ページに遷移
+    function order(){
+        var list = getSelected();
+        if(list.length==0)return;
+        request("/order/add",list);
+    }
+
+    //選択された商品をリストで返す
+    function getSelected(){
+        var flag = false; // 選択されているか否かを判定する変数
+        var list = []
+        for (var i = 0; i < document.table.selected_id.length; i++) {
+ 
+            // i番目のチェックボックスがチェックされているかを判定
+            if (document.table.selected_id[i].checked) {
+                flag = true;
+                list.push(document.table.selected_id[i].value)
+            }
+        }
+        
+        // 何も選択されていない場合の処理   
+        if (!flag) {
+            alert("項目が選択されていません。");
+        }
+        return list;
+    }
+
+    function request(action,list){
+        var form = document.createElement("form");
+        form.setAttribute("action", action);
+        form.setAttribute("method", "get");
+        form.style.display = "none";
+        document.body.appendChild(form);
+        // listの文字列化
+        var liststr = list[0]+"";
+        for (var i = 1;i<list.length;i++) {
+            liststr +=","+list[i];
+        }
+        // submit
+        var input = document.createElement('input');
+        input.setAttribute('type', 'hidden');
+        input.setAttribute('name', 'idstr');
+        input.setAttribute('value', liststr);
+        form.appendChild(input);
+        form.submit();
+    }
+
+$(document).ready(function() {
+    $(":checked").parent().parent().addClass("bg-info");
+    //クリックイベント発火
+
+    $("input").click(function(e) {
+        var t = e.target.type;
+        var chk = $(this).prop('checked');
+        var name = $(this).attr('name');
+        //チェックが入ったか入ってないかで条件分岐
+        if(t == 'checkbox') {
+            if(chk == true){
+                e.target.parentElement.parentElement.classList.add("bg-info");
+            } else {
+                e.target.parentElement.parentElement.classList.remove("bg-info");
+            }
+            return true;
+        }
+    });
+});
+
+</script>
+<h1>商品</h1>
+<a href="javascript:window.open('/product/add', 'product_add', 'width=400,height=300');">新しい商品の追加</a>
+<a href="javascript:window.open('/product/add', 'product_add', 'width=400,height=300');">選択商品を削除</a>
+<a href="javascript:order();">選択商品を発注</a><br>
+<form name = "table" method="post">
+<table class="table table-bordered table-condensed table-responsive">
+<thead class="thead-black">
+  <tr>
+        <th></th>
+        <th>ID</th>
+        <th>商品名</th>
+        <th>商品番号</th>
+        <th>カテゴリ</th>
+        <th>販売価格</th>
+        <th>仕入れ価格</th>
+        <th>仕入れ店</th>
+        <th>在庫</th>
+  </tr>
+</thead>
+<tbody>
+    {% for product in products %}
+    <tr>
+        <td><input type="checkbox" name ="selected_id" value ="{{product[0].id}}"></td>
+        <td>{{ product[0].id }}</td>
+        <td>{{ product[0].name }}</td>
+        <td>{{ product[0].identifer }}</td>
+        <td>{{ product[1].name }}</td>
+        <td>{{ product[0].selling_price }}</td>
+        <td>{{ product[0].purchase_price }}</td>
+        <td>{{ product[2].name }}</td>
+        <td>{{ product[0].stock }}</td>
+        <td><a href="javascript:window.open('/product/edit?id={{product[0].id}}', 'edit', 'width=400,height=300');">編集</a></td>
+        <td><a href="javascript:result = window.confirm('商品:{{product[0].name}}を削除します');if(result)location.href='/product/remove?id={{product.id}}';">削除</a></td>
+  </tr>
+  {% else %}
+      <tr><td></td><td></td><td>商品が登録されていません</td></tr>
+  {% endfor %}
+</tbody>
+</table>
+{% endblock %}

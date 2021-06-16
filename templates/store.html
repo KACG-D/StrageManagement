@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% set active_page = "store" %}
+{% block title %}
+仕入れ店
+{% endblock %}
+
+{% block content %}
+<h1>仕入れ店</h1>
+<a href="javascript:window.open('/store/add', 'store_add', 'width=400,height=300');">新しい仕入れ店の追加</a><br>
+
+<table class="table table-bordered">
+<thead>
+  <tr>
+      <th>ID</th>
+      <th>店名</th>
+      <th>住所</th>
+      <th>電話番号</th>
+      <th>メール</th>
+  </tr>
+</thead>
+<tbody>
+  {% for store in stores %}
+  <tr>
+      <td>{{ store.id }}</td>
+      <td>{{ store.name }}</td>
+      <td>{{ store.address }}</td>
+      <td>{{ store.phone }}</td>
+      <td>{{ store.mail }}</td>
+      <td>
+        <a href="javascript:window.open('/store/edit?id={{store.id}}', 'edit', 'width=400,height=300');">編集</a>
+      </td>
+      <td><a href="javascript:result = window.confirm('仕入れ店:{{store.name}}を削除します');if(result)location.href='/store/remove?id={{store.id}}';">削除</a></td>
+  </tr>
+  {% else %}
+      <tr><td></td><td>仕入れ店が登録されていません</td></tr>
+  {% endfor %}
+</tbody>
+</table>
+{% endblock %}

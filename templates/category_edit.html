@@ -1,0 +1,15 @@
+
+{% extends "pop_base.html" %}
+
+{% block title %}
+{{category.name}}の編集
+{% endblock %}
+
+{% block content %}
+<h1 align="center">{{category.name}}の編集</h1>
+<form name="myform" action="/category/edit" method = "post" onsubmit="rank()">
+    カテゴリ名:<input type='text' name='name' value="{{category.name}}"><br>
+    <input type="hidden" value="{{category.id}}" name="id">
+    <input type="button" value="保存" onClick="rank()">
+</form>
+{% endblock %}

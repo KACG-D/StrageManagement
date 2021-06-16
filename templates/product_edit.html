@@ -1,0 +1,35 @@
+
+{% extends "pop_base.html" %}
+
+{% block title %}
+{{product.name}}の編集
+{% endblock %}
+
+{% block content %}
+<h1 align="center">{{product.name}}の編集</h1>
+<form name="myform" action="/product/edit" method = "post" onsubmit="rank()">
+    <input type="hidden" value="{{product.id}}" name="id">
+    商品名:<input type='text' name='name' value="{{product.name}}"><br>
+    商品番号:<input type='text' name='identifer' value="{{product.identifer}}"><br>
+    カテゴリ:
+    <select name="category_id">
+        {% for category in categories %}
+        <option value="{{category.id}}" {% if category.id ==product.category_id %}selected{%endif%}>{{category.name}}</option>
+        {% else %}
+        <option value=""></option>
+        {% endfor %}
+    </select><br>
+    販売価格:<input type='number' name='selling_price' value="{{product.selling_price}}" min=0><br>
+    仕入れ価格:<input type='number' name='purchase_price' value="{{product.purchase_price}}" min=0><br>
+    仕入れ店:
+    <select name="store_id">
+        {% for store in stores %}
+        <option value="{{store.id}}" {% if store.id ==product.store_id %}selected{%endif%}>{{store.name}}</option>
+        {% else %}
+        <option value=""></option>
+        {% endfor %}
+    </select><br>
+    在庫:<input type='number' name='stock' value="{{product.stock}}" min=0><br>
+    <input type="button" value="保存" onClick="rank()">
+</form>
+{% endblock %}
