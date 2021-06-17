@@ -11,5 +11,5 @@
 
 # 使用技術
 - Flask
-- MySQL
+- SQLite
 - reportlab
